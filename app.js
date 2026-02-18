@@ -99,8 +99,25 @@ async function showDetails(id) {
 
 function addToCart(id) {
   cart.push(id);
-  cartCountElement.innerText = cart.length;
-  alert("Item added to cart!");
+  if (cartCountElement) {
+    cartCountElement.innerText = cart.length;
+  }
+
+  const modal = document.getElementById("product_modal");
+  if (modal && modal.open) {
+    modal.close();
+  }
+
+  const btn = event?.target;
+  if (btn) {
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '<i class="fa-solid fa-check"></i> Added!';
+    btn.classList.add("btn-success");
+    setTimeout(() => {
+      btn.innerHTML = originalText;
+      btn.classList.remove("btn-success");
+    }, 2000);
+  }
 }
 
 function displayTrending(products) {
